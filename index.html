@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Block Blast | GlitchedGoose()</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="./styles.css"/>
+  </head>
+  <body>
+    <h1>Block Blast</h1>
+    
+    <canvas id="scene" width="480" height="480"></canvas>
+    
+    <h3>A game by <span>GlitchedGoose()</span></h3>
+    
+    <script src="./scripts/globals.js"></script>
+    <script src="./scripts/block.js"></script>
+    <script src="./scripts/board.js"></script>
+    <script src="./scripts/main.js"></script>
+    <script>
+      window.onload = () => {
+        canvas = document.getElementById("scene");
+        ctx = canvas.getContext("2d");
+        
+        setup();
+        loop();
+      }
+    </script>
+  </body>
+</html>

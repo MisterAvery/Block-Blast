@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-size: 16px;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #123;
+  justify-content: center;
+  align-items: center;
+  
+  font-family: "Open Sans", sans-serif;
+  color: #dee;
+}
+
+h1 {
+  font-size: 3rem;
+  letter-spacing: 0.04em;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+span {
+  color: #a36;
+  letter-spacing: 0.18em;
+  text-decoration: underline;
+}
+
+canvas {
+  background: #678a;
+  margin: 1.75rem 0;
+}
