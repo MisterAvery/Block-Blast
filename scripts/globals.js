@@ -11,7 +11,6 @@ let width;
 let height;
 
 let board;
-let peiceTypes = ["horizontal-line", "vertical-line", "right-flank", "left-flank"];
 
 /*
 1x1
@@ -49,8 +48,12 @@ Array.prototype.random = function() {
   return this[Math.floor((Math.random() * this.length))];
 };
 
+function getRandomValue(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function getRandomColor() {
-  return `hsl(${Math.floor(Math.random() * 360)}, 73%, 58%)`;
+  return `hsl(${getRandomValue(0, 360)}, 73%, 58%)`;
 }
 
 function bound(value, min, max) {
