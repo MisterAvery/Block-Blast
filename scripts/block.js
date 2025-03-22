@@ -4,7 +4,7 @@
 
 */
 
-let temp = {
+let blockConstructor = {
   peiceMaps: {
     "right-flank": [
       [1,0,0],
@@ -64,7 +64,7 @@ let temp = {
     
     "5-stair": [
       [1,1,1],
-      [1,1,0],
+      [1,0,0],
       [1,0,0]
     ],
     
@@ -75,14 +75,11 @@ let temp = {
   },
   
   getRandomPeiceType() {
-    return Object.keys(temp.peiceMaps).random();
+    return Object.keys(blockConstructor.peiceMaps).random();
   },
   
   getTranspose(map) {
-    let output = [];
-    for (let i = 0; i < map[0].length; i++) {
-      output.push(new Array(map.length).fill(0));
-    }
+    let output = Array.from(map[0], i => new Array(map.length).fill(0));
     
     for (let y = 0; y < map.length; y++) {
       for (let x = 0; x < map[0].length; x++) {
@@ -97,7 +94,8 @@ let temp = {
     let output = map;
     
     for (let r = 0; r < getRandomValue(0, 3); r++) {
-      output = temp.getTranspose(output);
+      // rote the map by 90 degrees clockwise
+      output = blockConstructor.getTranspose(output);
       
       for(let i = 0; i < output.length; i++) {
         output[i] = output[i].reverse();
@@ -109,8 +107,9 @@ let temp = {
   
   getPointArray(type) {
     let points = [];
-    let bluePrint = temp.getRandomMapOrientation(temp.peiceMaps[type]);
+    let bluePrint = blockConstructor.getRandomMapOrientation(blockConstructor.peiceMaps[type]);
     
+    // covert the blueprint into a 1 dimensional array of point objects
     for (let y = 0; y < bluePrint.length; y++) {
       let row = bluePrint[y];
       
@@ -119,23 +118,29 @@ let temp = {
       }
     }
     
-    return points;
+    return {points, bluePrint};
   }
 };
 
 class Block {
   constructor(type) {
-    this.points = temp.getPointArray(type);
+    this.blockData = blockConstructor.getPointArray(type);
+    this.points = this.blockData.points;
+    this.bluePrint = this.blockData.bluePrint;
     this.pointCount = this.points.length;
+    
+    this.width = this.bluePrint[0].length;
+    this.height = this.bluePrint.length;
+    
     this.color;
     this.type = type;
     this.color = getRandomColor();
   }
   
-  deletePoint(x, y) {
+  deletePoint(other) {
     for (let i = 0; i < this.points.length; i++) {
       let point = this.points[i];
-      if (point.x == x && point.y == y) {
+      if (point.equals(other)) {
         this.points.splice(i, 1);
       }
     }

@@ -6,9 +6,9 @@
 
 class Board {
   constructor() {
-    this.tileSize = 35;
-    this.rowCount = Math.floor(height / this.tileSize);
-    this.colCount = Math.floor(width / this.tileSize);
+    this.tileSize = tileSize;
+    this.rowCount = rows;
+    this.colCount = cols;
     
     // initalize the 2D array
     this.map = new Array(this.rowCount);
@@ -80,22 +80,12 @@ class Board {
     for (let space of spacesToClear) {
       let {x, y} = space;
       
-      this.blocks[this.map[y][x] - 1].deletePoint(x, y);
+      this.blocks[this.map[y][x] - 1].deletePoint( new Point(x, y) );
       this.map[y][x] = 0;
     }
   }
   
-  draw() {
-    // draw the blocks to the screen
-    for (let block of this.blocks) {
-        ctx.fillStyle = block.color;
-        // draw the tile to the screen
-        for (let point of block.points) {
-          ctx.fillRect(point.x * this.tileSize, point.y * this.tileSize, this.tileSize, this.tileSize);
-        }
-    }
-    
-    
+  drawGridLines() {
     // draw the grid to the screen
     for (let col = 0; col < this.colCount; col++) {
       const x = this.tileSize * col;
@@ -116,6 +106,31 @@ class Board {
         }
       }
     }
-    
+  }
+  
+  drawBlocks() {
+    // draw the blocks to the screen
+    for (let block of this.blocks) {
+        ctx.fillStyle = block.color;
+        // draw the tile to the screen
+        for (let point of block.points) {
+          ctx.fillRect(point.x * this.tileSize, point.y * this.tileSize, this.tileSize, this.tileSize);
+        }
+    }
+  }
+  
+  drawNextPiece() {
+    // draw the shadow of the nextPeice if the mouse has moved
+    if (mouseData.hasMoved) {
+      ctx.fillStyle = board.nextBlock.color;
+      for (let point of board.nextBlock.points) {
+        ctx.fillRect(
+          point.x * board.tileSize + mouseData.x * board.tileSize,
+          point.y * board.tileSize + mouseData.y * board.tileSize,
+          board.tileSize,
+          board.tileSize
+        );
+      }
+    }
   }
 }

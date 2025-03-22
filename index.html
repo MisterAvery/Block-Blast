@@ -14,9 +14,17 @@
   <body>
     <h1>Block Blast</h1>
     
-    <canvas id="scene" width="480" height="480"></canvas>
+    <div id="game-con">
+      <p id='score'><span>87</span></p>
+      <canvas id="scene" width="280" height="280"></canvas>
+      <div id="peice-chooser">
+        <div class="image-con"></div>
+        <div class="image-con"></div>
+        <div class="image-con"></div>
+      </div>
+    </div>
     
-    <h3>A game by <span>GlitchedGoose()</span></h3>
+    <h3>A game by <span id="attribution">GlitchedGoose()</span></h3>
     
     <script src="./scripts/globals.js"></script>
     <script src="./scripts/block.js"></script>
