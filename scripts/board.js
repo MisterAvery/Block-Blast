@@ -17,12 +17,29 @@ class Board {
     }
     
     this.blocks = [];
+    
+    this.reloadNextBlocks();
     this.nextBlock;
+    this.nextBlockIndex;
+    
+    this.score = 0;
+    this.combo = 0;
+    this.comboCountdown = 3;
+    this.totalLinesCleared = 0;
+  }
+  
+  updateScore(val) {
+    this.score += val;
+    scoreBox.innerText = this.score;
   }
   
   addPeice(mouseX, mouseY, block) {
     // update the position of the block
     block.place(new Point(mouseX, mouseY));
+    
+    // update the score variables
+    this.updateScore(block.pointCount);
+    this.comboCountdown--;
     
     // set the posiitons that the block takes in the map array as taken
     for (let point of block.points) {
@@ -35,11 +52,13 @@ class Board {
   
   update() {
     let spacesToClear = [];
+    let linesCleared = 0;
     
     // add the points within completed rows to spacesToClear
     for (let y = 0; y < this.rowCount; y++) {
       if (this.map[y].every(val => val > 0)) {
-        console.log("complete row found");
+        linesCleared++;
+        
         for (let x = 0; x < this.colCount; x++) {
           let space = new Point(x, y);
           let valid = true;
@@ -61,7 +80,8 @@ class Board {
       this.map.forEach( row => col.push(row[x]) );
       
       if (col.every(val => val > 0)) {
-        console.log("complete column found");
+        linesCleared++;
+        
         for (let y = 0; y < this.rowCount; y++) {
           let space = new Point(x, y);
           let valid = true;
@@ -76,6 +96,21 @@ class Board {
       }
     }
     
+    // update the score
+    if (linesCleared > 0) {
+      this.totalLinesCleared += linesCleared;
+      this.combo++;
+      comboBox.innerText = this.combo;
+      linesClearedBox.innerText = this.totalLinesCleared;
+      
+      this.comboCountdown = 3;
+      this.updateScore(this.rowCount * linesCleared * this.combo);
+    } else if (this.comboCountdown < 1) {
+        this.combo = 0;
+        comboBox.innerText = this.combo;
+        this.comboCountdown = 3;
+    }
+    
     // clear the points in spacesToClear
     for (let space of spacesToClear) {
       let {x, y} = space;
@@ -83,6 +118,24 @@ class Board {
       this.blocks[this.map[y][x] - 1].deletePoint( new Point(x, y) );
       this.map[y][x] = 0;
     }
+  }
+  
+  reloadNextBlocks() {
+    let output = new Array(3);
+    
+    for (let i = 0; i < 3; i++) {
+      output[i] = new Block(blockConstructor.getRandomPeiceType());
+    }
+    
+    this.nextBlocks = output;
+    this.nextBlockIndex = 0;
+  }
+  
+  setNextBlock(i) {
+    this.nextBlock = this.nextBlocks[i];
+    this.nextBlockIndex = i;
+    
+    if (i >= 2) this.reloadNextBlocks();
   }
   
   drawGridLines() {
@@ -119,7 +172,7 @@ class Board {
     }
   }
   
-  drawNextPiece() {
+  drawNextBlock() {
     // draw the shadow of the nextPeice if the mouse has moved
     if (mouseData.hasMoved) {
       ctx.fillStyle = board.nextBlock.color;

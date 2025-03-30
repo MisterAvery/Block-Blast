@@ -42,22 +42,44 @@ h3 {
   padding: 1.5rem;
 }
 
-#score {
+
+
+#info-con {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
   background: repeating-linear-gradient(180deg, white 0px 3px, #f4f4f4 6px 9px, white 12px);
   color: #123;
+}
+
+#info-con > div {
   font-style: serif;
-  font-size: 2.5rem;
-  padding: 0.3em 0;
-  font-weight: 500;
   text-align: center;
   letter-spacing: 0.05em;
 }
 
-#score > span {
+#score {
+  font-size: 2.5rem;
+  padding: 0.3em 0;
+  font-weight: 500;
+  margin: 0 1em;
+}
+
+#combo, #lines-cleared {
+  font-size: 1.3rem;
+  padding: 0.1em 0;
+  font-weight: 100;
+}
+
+#info-con > div  {
   background: white;
   padding: 0.15em 0.5em;
   border: 3px solid dodgerblue;
 }
+
+
 
 #peice-chooser {
   padding: 1rem 0;

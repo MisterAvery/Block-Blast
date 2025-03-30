@@ -4,7 +4,12 @@
 
 */
 
+// DOM element handles
 let canvas;
+let scoreBox;
+let comboBox;
+let rowsClearedBox;
+
 let ctx;
 
 let width;

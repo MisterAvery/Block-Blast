@@ -15,7 +15,11 @@
     <h1>Block Blast</h1>
     
     <div id="game-con">
-      <p id='score'><span>87</span></p>
+      <div id="info-con">
+        <div id='lines-cleared'><p>0</p></div>
+        <div id='score'><p>0</p></div>
+        <div id='combo'><p>0</p></div>
+      </div>
       <canvas id="scene" width="280" height="280"></canvas>
       <div id="peice-chooser">
         <div class="image-con"></div>
@@ -32,8 +36,12 @@
     <script src="./scripts/main.js"></script>
     <script>
       window.onload = () => {
+        // initalize the vlsue of the DOM elemet variables
         canvas = document.getElementById("scene");
         ctx = canvas.getContext("2d");
+        scoreBox = document.querySelector("#score > p");
+        comboBox = document.querySelector("#combo > p");
+        linesClearedBox = document.querySelector("#lines-cleared > p");
         
         setup();
         loop();

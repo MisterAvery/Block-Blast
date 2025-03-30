@@ -9,7 +9,8 @@ function setup() {
   width = canvas.width = cols * tileSize;
   height = canvas.height = rows * tileSize;
   board = new Board();
-  board.nextBlock = new Block( blockConstructor.getRandomPeiceType() );
+  console.log(board.nextBlocks);
+  board.setNextBlock(0);
 
   // listeners
   document.addEventListener("mousemove", event => mouseData.update(event));
@@ -25,9 +26,11 @@ function setup() {
     
     // add the block if it is valid
     board.addPeice( mouseData.x, mouseData.y, board.nextBlock );
+    board.nextBlocks[board.nextBlockIndex] = 0;
+    console.log(board.nextBlocks);
     
     // select a new peice to be added next
-    board.nextBlock = new Block( blockConstructor.getRandomPeiceType() );
+    board.setNextBlock(board.nextBlockIndex + 1);
   });
 }
 
@@ -37,7 +40,7 @@ function loop() {
   
   board.update();
   board.drawBlocks();
-  board.drawNextPiece();
+  board.drawNextBlock();
   board.drawGridLines();
   
   requestAnimationFrame(loop);
