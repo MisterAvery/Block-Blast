@@ -10,7 +10,6 @@ function setup() {
   height = canvas.height = rows * tileSize;
   board = new Board();
   console.log(board.nextBlocks);
-  board.setNextBlock(0);
 
   // listeners
   document.addEventListener("mousemove", event => mouseData.update(event));
@@ -26,11 +25,13 @@ function setup() {
     
     // add the block if it is valid
     board.addPeice( mouseData.x, mouseData.y, board.nextBlock );
-    board.nextBlocks[board.nextBlockIndex] = 0;
     console.log(board.nextBlocks);
     
     // select a new peice to be added next
-    board.setNextBlock(board.nextBlockIndex + 1);
+    // board.setNextBlock(board.nextBlockIndex + 1);
+    for (let i = 0; i < 3; i++) {
+      if (board.nextBlocks[i]) board.setNextBlock(i);
+    }
   });
 }
 

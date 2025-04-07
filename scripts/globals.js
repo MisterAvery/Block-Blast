@@ -4,11 +4,14 @@
 
 */
 
+"use strict";
+
 // DOM element handles
 let canvas;
 let scoreBox;
 let comboBox;
 let rowsClearedBox;
+let imageButtons = document.querySelectorAll(".image-con > button");
 
 let ctx;
 
@@ -42,6 +45,13 @@ Array.prototype.random = function() {
 // gets a random integer between a min and max
 function getRandomValue(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function buttonClicked(i) {
+  if (!board.nextBlocks[i - 1]) return;
+  
+  console.log("Selected button number: " + i);
+  board.setNextBlock(i - 1);
 }
 
 // gets a random hsl color value

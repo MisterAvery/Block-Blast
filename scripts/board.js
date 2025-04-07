@@ -36,6 +36,13 @@ class Board {
   addPeice(mouseX, mouseY, block) {
     // update the position of the block
     block.place(new Point(mouseX, mouseY));
+    this.nextBlocks[this.nextBlockIndex] = 0;
+    if (this.nextBlocks.every(x => x < 1)) {
+      this.reloadNextBlocks();
+    }
+    else {
+      this.setNextBlock(this.nextBlockIndex + 1);
+    }
     
     // update the score variables
     this.updateScore(block.pointCount);
@@ -121,21 +128,19 @@ class Board {
   }
   
   reloadNextBlocks() {
-    let output = new Array(3);
+    this.nextBlocks = Array.of(
+      new Block(blockConstructor.getRandomPeiceType()),
+      new Block(blockConstructor.getRandomPeiceType()),
+      new Block(blockConstructor.getRandomPeiceType())
+    );
     
-    for (let i = 0; i < 3; i++) {
-      output[i] = new Block(blockConstructor.getRandomPeiceType());
-    }
-    
-    this.nextBlocks = output;
-    this.nextBlockIndex = 0;
+    this.setNextBlock(0);
   }
   
   setNextBlock(i) {
+    if (!this.nextBlocks[i]) return;
     this.nextBlock = this.nextBlocks[i];
     this.nextBlockIndex = i;
-    
-    if (i >= 2) this.reloadNextBlocks();
   }
   
   drawGridLines() {
