@@ -53,7 +53,6 @@ function getRandomValue(min, max) {
 function buttonClicked(i) {
   if (!board.nextBlocks[i - 1]) return;
   
-  console.log("Selected button number: " + i);
   board.setNextBlock(i - 1);
 }
 
