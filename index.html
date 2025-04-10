@@ -3,6 +3,10 @@
   <head>
     <title>Block Blast | GlitchedGoose()</title>
     
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,23 +25,20 @@
         <div id='combo'><p>0</p></div>
       </div>
       <canvas id="scene" width="280" height="280"></canvas>
-      <div id="peice-chooser">
-        <div class="image-con">
+      <div id="piece-chooser">
+        <div class="piece-image-con">
           <button onclick="buttonClicked(1)">
-            <img style="width: 100%;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu6rprR59mNyuN5Dze4OPutsPVtItWbJtAqw&s">
-          
+            <canvas width="100%" height="100%"></canvas>
           </button>
         </div>
-        <div class="image-con">
+        <div class="piece-image-con">
           <button onclick="buttonClicked(2)">
-            <img style="width: 100%;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu6rprR59mNyuN5Dze4OPutsPVtItWbJtAqw&s">
-          
+            <canvas width="100%" height="100%"></canvas>
           </button>
         </div>
-        <div class="image-con">
+        <div class="piece-image-con">
           <button onclick="buttonClicked(3)">
-            <img style="width: 100%;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu6rprR59mNyuN5Dze4OPutsPVtItWbJtAqw&s">
-          
+            <canvas width="100%" height="100%"></canvas>
           </button>
         </div>
       </div>
@@ -52,12 +53,19 @@
     <script src="./scripts/main.js"></script>
     <script>
       window.onload = () => {
-        // initalize the vlsue of the DOM elemet variables
+        // initalize the value of the DOM elemet variables
         canvas = document.getElementById("scene");
+        pieceSelectorCanvases = document.querySelectorAll(".piece-image-con canvas");
+        
         ctx = canvas.getContext("2d");
+        pieceSelectorCtxs = [];
+        
+        pieceSelectorCanvases.forEach(element => pieceSelectorCtxs.push(element.getContext("2d")));
+        
         scoreBox = document.querySelector("#score > p");
         comboBox = document.querySelector("#combo > p");
         linesClearedBox = document.querySelector("#lines-cleared > p");
+        imageButtons = document.querySelectorAll(".image-con > button");
         
         setup();
         loop();

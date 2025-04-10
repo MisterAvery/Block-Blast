@@ -135,6 +135,9 @@ class Board {
     );
     
     this.setNextBlock(0);
+    
+    // reset the small canvases
+    pieceSelectorCtxs.forEach(context => context.clearRect(0, 0, 99, 99));
   }
   
   setNextBlock(i) {

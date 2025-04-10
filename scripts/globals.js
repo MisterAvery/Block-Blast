@@ -8,12 +8,15 @@
 
 // DOM element handles
 let canvas;
+let pieceSelectorCanvases;
+
 let scoreBox;
 let comboBox;
 let rowsClearedBox;
-let imageButtons = document.querySelectorAll(".image-con > button");
+let imageButtons;
 
 let ctx;
+let pieceSelectorCtxs;
 
 let width;
 let height;
